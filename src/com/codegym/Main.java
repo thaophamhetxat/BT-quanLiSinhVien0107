@@ -12,6 +12,9 @@ public class Main {
     static ManagerSinhVien managerSinhVien = new ManagerSinhVien();
     static Scanner scanner = new Scanner(System.in);
     static File sinhVien = new File("sinhVien.csv");
+    static String tieuDe = ("maSinhVien,hoTen,tuoi,gioiTinh,diaChi,diemTrungBinh");
+
+
 
 
     public static void main(String[] args) throws IOException {
@@ -52,7 +55,6 @@ public class Main {
                     }
                 }break;
                 case 7: {
-
                     ghiFile();
                 }break;
                 case 8:
@@ -66,10 +68,11 @@ public class Main {
         try {
             FileReader fileReader = new FileReader(sinhVien);
             bufferedReader = new BufferedReader(fileReader);
+
             String line = "";
             while ((line = bufferedReader.readLine()) != null) {
                 String[] str = line.split(", ");
-                if (str.length >= 3) {
+                if (str.length >= 6) {
                     managerSinhVien.list.add(new SinhVien(str[0], str[1], str[2], str[3], str[4], str[5]));
                 }
             }
@@ -87,8 +90,11 @@ public class Main {
         try {
             FileWriter fileWriter = new FileWriter(sinhVien);
             bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(tieuDe);
+            bufferedWriter.newLine();
             for (SinhVien sv : managerSinhVien.list) {
                 bufferedWriter.write(sv.ghi());
+
                 bufferedWriter.newLine();
             }
 
